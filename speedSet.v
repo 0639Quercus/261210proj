@@ -2,26 +2,26 @@ module speedSet(clk_out, speed_toggle, clk, reset);
     input speed_toggle, clk, reset;
     output clk_out;
 
-    wire [20:0] count, durHigh, durLow;
+    wire [21:0] count, durHigh, durLow;
     wire [2:0] mode;
     wire toggle, toggleLow, toggleHigh;
     wire ct21reset;
     tricounter tc3(mode, speed_toggle, reset);
-    permitter21_3 perm0(durLow, mode, 21'd30,21'd20,21'd10);
-    permitter21_3 perm1(durHigh, mode, 21'd60,21'd40,21'd20);
+    permitter22_3 perm0(durLow, mode,  22'h1406f4, 22'h0d59f8, 22'h06acfc); // 1.3125 sec, 0.875 sec, 0.4375 sec
+    permitter22_3 perm1(durHigh, mode, 22'h280de8, 22'h1ab3f0, 22'h0d59f8); // 2.625 sec,  1.75 sec,  0.875 sec
     equal21 eql0(toggleLow, count, durLow);
     equal21 eql1(toggleHigh, count, durHigh);
 
     assign toggle = (toggleLow & ~clk_out) | (toggleHigh & clk_out);
     assign ct21reset = reset | toggle;
-    counter21 ct21(count, clk, ct21reset);
+    counter22 ct22(count, clk, ct21reset);
     T_FF tff(clk_out, 1'b1, toggle, reset);
 endmodule
 
-module counter21(Q, clk, reset); // maximum 2 seconds from 1MHz clock
+module counter22(Q, clk, reset); // maximum 4 seconds from 1MHz clock
     input clk, reset;
-    output [20:0] Q;
-    wire [20:0] T;
+    output [21:0] Q;
+    wire [21:0] T;
 
     T_FF tff0(Q[0], T[0], clk ,reset);
     T_FF tff1(Q[1], T[1], clk ,reset);
@@ -44,6 +44,7 @@ module counter21(Q, clk, reset); // maximum 2 seconds from 1MHz clock
     T_FF tff18(Q[18], T[18], clk ,reset);
     T_FF tff19(Q[19], T[19], clk ,reset);
     T_FF tff20(Q[20], T[20], clk ,reset);
+    T_FF tff21(Q[21], T[21], clk ,reset);
 
     assign T[0] = 1'b1;
     assign T[1] = Q[0];
@@ -66,6 +67,7 @@ module counter21(Q, clk, reset); // maximum 2 seconds from 1MHz clock
     and and18(T[18], Q[17], T[17]);
     and and19(T[19], Q[18], T[18]);
     and and20(T[20], Q[19], T[19]);
+    and and21(T[21], Q[20], T[20]);
 endmodule
 
 module tricounter(Q, clk, reset); //starts at 3'b100
@@ -103,10 +105,10 @@ module D_FF (q, d, clk, preset, reset);
             q <= d;
 endmodule
 
-module permitter21_3(out, permit, a, b, c);
-    input [20:0] a,b,c;
+module permitter22_3(out, permit, a, b, c);
+    input [21:0] a,b,c;
     input [2:0] permit;
-    output [20:0] out;
+    output [21:0] out;
 
     assign out[0] = (a[0] & permit[0]) | (b[0] & permit[1]) | (c[0] & permit[2]);
     assign out[1] = (a[1] & permit[0]) | (b[1] & permit[1]) | (c[1] & permit[2]);
@@ -129,15 +131,18 @@ module permitter21_3(out, permit, a, b, c);
     assign out[18] = (a[18] & permit[0]) | (b[18] & permit[1]) | (c[18] & permit[2]);
     assign out[19] = (a[19] & permit[0]) | (b[19] & permit[1]) | (c[19] & permit[2]);
     assign out[20] = (a[20] & permit[0]) | (b[20] & permit[1]) | (c[20] & permit[2]);
+    assign out[21] = (a[21] & permit[0]) | (b[21] & permit[1]) | (c[21] & permit[2]);
 endmodule
 
 module equal21(q, a, b);
-    input [20:0] a,b;
+    input [21:0] a,b;
     output q;
 
-    wire [20:0] eql;
+    wire [21:0] eql;
 
-    assign q = eql[0] & eql[1] & eql[2] & eql[3] & eql[4] & eql[5] & eql[6] & eql[7] & eql[8] & eql[9] & eql[10] & eql[11] & eql[12] & eql[13] & eql[14] & eql[15] & eql[16] & eql[17] & eql[18] & eql[19] & eql[20];
+    assign q = eql[0] & eql[1] & eql[2] & eql[3] & eql[4] & eql[5] & eql[6] & eql[7] 
+                & eql[8] & eql[9] & eql[10] & eql[11] & eql[12] & eql[13] & eql[14] 
+                & eql[15] & eql[16] & eql[17] & eql[18] & eql[19] & eql[20] & eql[21];
 
     xnor xnor0(eql[0],a[0],b[0]);
     xnor xnor1(eql[1],a[1],b[1]);
@@ -160,5 +165,6 @@ module equal21(q, a, b);
     xnor xnor18(eql[18],a[18],b[18]);
     xnor xnor19(eql[19],a[19],b[19]);
     xnor xnor20(eql[20],a[20],b[20]);
+    xnor xnor21(eql[21],a[21],b[21]);
 
 endmodule
