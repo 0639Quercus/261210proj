@@ -1,0 +1,93 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "E:\iverilog\lib\ivl\system.vpi";
+:vpi_module "E:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "E:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "E:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "E:\iverilog\lib\ivl\va_math.vpi";
+S_00000159980ebdb0 .scope module, "BTN_regSTIM" "BTN_regSTIM" 2 1;
+ .timescale 0 0;
+v000001599817d840_0 .var "BTN", 0 0;
+v000001599817d8e0_0 .net "LED", 0 0, L_00000159980e87f0;  1 drivers
+v000001599817d980_0 .var "mem", 0 0;
+v000001599817da20_0 .net "out", 0 0, L_00000159980e8b70;  1 drivers
+S_0000015998136720 .scope module, "BTNR" "BTN_reg" 2 5, 3 5 0, S_00000159980ebdb0;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "out";
+    .port_info 1 /OUTPUT 1 "LED";
+    .port_info 2 /INPUT 1 "BTN";
+    .port_info 3 /INPUT 1 "mem";
+L_00000159980e89b0 .functor AND 1, v000001599817d980_0, v000001599817d840_0, C4<1>, C4<1>;
+L_00000159980e8c50 .functor NOT 1, v000001599817d980_0, C4<0>, C4<0>, C4<0>;
+L_00000159980e8b00 .functor NOR 1, L_00000159980e8e10, L_00000159980e8c50, C4<0>, C4<0>;
+L_00000159980e8e10 .functor NOR 1, L_00000159980e8b00, L_00000159980e89b0, C4<0>, C4<0>;
+L_00000159980e8b70 .functor BUFZ 1, L_00000159980e8b00, C4<0>, C4<0>, C4<0>;
+L_00000159980e87f0 .functor AND 1, L_00000159980e8e10, v000001599817d980_0, C4<1>, C4<1>;
+v00000159980e9be0_0 .net "BTN", 0 0, v000001599817d840_0;  1 drivers
+v00000159980e9a20_0 .net "LED", 0 0, L_00000159980e87f0;  alias, 1 drivers
+v00000159980ea9b0_0 .net "mem", 0 0, v000001599817d980_0;  1 drivers
+v00000159980eaa50_0 .net "out", 0 0, L_00000159980e8b70;  alias, 1 drivers
+v00000159981368b0_0 .net "q", 0 0, L_00000159980e8b00;  1 drivers
+v0000015998136950_0 .net "qn", 0 0, L_00000159980e8e10;  1 drivers
+v00000159981369f0_0 .net "reset", 0 0, L_00000159980e8c50;  1 drivers
+v0000015998136a90_0 .net "set", 0 0, L_00000159980e89b0;  1 drivers
+    .scope S_00000159980ebdb0;
+T_0 ;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v000001599817d980_0, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v000001599817d840_0, 0;
+    %vpi_call 2 10 "$dumpfile", "BTN_reg.vcd" {0 0 0};
+    %vpi_call 2 11 "$dumpvars", 32'sb00000000000000000000000000000000, S_00000159980ebdb0 {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_00000159980ebdb0;
+T_1 ;
+    %delay 5, 0;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v000001599817d980_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v000001599817d980_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v000001599817d840_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v000001599817d840_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v000001599817d980_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v000001599817d840_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v000001599817d840_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v000001599817d980_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v000001599817d840_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v000001599817d980_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v000001599817d980_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v000001599817d840_0, 0;
+    %delay 10, 0;
+    %vpi_call 2 30 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "stims\BTN_regSTIM.v";
+    "BTN_reg.v";
