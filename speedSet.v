@@ -1,21 +1,27 @@
-module speedSet(clk_out, speed_toggle, clk, reset);
-    input speed_toggle, clk, reset;
+module speedSet(clk_out, speed_toggle, clk);
+    input speed_toggle, clk;
     output clk_out;
+    reg init;
 
     wire [21:0] count, durHigh, durLow;
     wire [2:0] mode;
     wire toggle, toggleLow, toggleHigh;
     wire ct21reset;
-    tricounter tc3(mode, speed_toggle, reset);
+    tricounter tc3(mode, speed_toggle, init);
     permitter22_3 perm0(durLow, mode,  22'h1406f4, 22'h0d59f8, 22'h06acfc); // 1.3125 sec, 0.875 sec, 0.4375 sec
     permitter22_3 perm1(durHigh, mode, 22'h280de8, 22'h1ab3f0, 22'h0d59f8); // 2.625 sec,  1.75 sec,  0.875 sec
-    equal21 eql0(toggleLow, count, durLow);
-    equal21 eql1(toggleHigh, count, durHigh);
+    equal22 eql0(toggleLow, count, durLow);
+    equal22 eql1(toggleHigh, count, durHigh);
 
     assign toggle = (toggleLow & ~clk_out) | (toggleHigh & clk_out);
-    assign ct21reset = reset | toggle;
+    assign ct21reset = init | toggle;
     counter22 ct22(count, clk, ct21reset);
-    T_FF tff(clk_out, 1'b1, toggle, reset);
+    T_FF tff(clk_out, 1'b1, toggle, init);
+
+    initial
+        init <= 1'b1;
+    always @ (negedge clk)
+        init <= 1'b0;
 endmodule
 
 module counter22(Q, clk, reset); // maximum 4 seconds from 1MHz clock
@@ -134,7 +140,7 @@ module permitter22_3(out, permit, a, b, c);
     assign out[21] = (a[21] & permit[0]) | (b[21] & permit[1]) | (c[21] & permit[2]);
 endmodule
 
-module equal21(q, a, b);
+module equal22(q, a, b);
     input [21:0] a,b;
     output q;
 

@@ -1,3 +1,17 @@
+module initializer(q, in, clk);
+    input in, clk;
+    output q;
+    reg init;
+
+    monostable mnstb(q, init, clk);
+
+    initial
+        init = 0;
+
+    always @ (posedge in)
+        init = 1;
+endmodule
+
 module monostable(q, in, clk); // maximum of 1 second for 1MHz clock
     output q;
     input in, clk;

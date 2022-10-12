@@ -1,17 +1,17 @@
 `timescale 100ns / 1ns
-module monostableSTIM;
+module initializerSTIM;
     // Inputs
     reg in;
     reg clk;
     // Outputs
     wire out;
     // Instantiate the debouncing Verilog code
-    monostable c20( out, in, clk);
+    initializer init( out, in, clk);
     initial begin
         in <= 1'b0;
         clk <= 1'b0;
-        $dumpfile("monostable.vcd");
-        $dumpvars(0,monostableSTIM);
+        $dumpfile("initializer.vcd");
+        $dumpvars(0,initializerSTIM);
     end
 
     always
@@ -38,7 +38,4 @@ module monostableSTIM;
         #10000000 $finish;
     end 
 
-    // initial
-    // $monitor($time, " output out = %d in = %d, clk = %d", out, in, clk);
-
-endmodule
+endmodule   
