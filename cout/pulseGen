@@ -1,0 +1,150 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 8;
+:vpi_module "E:\iverilog\lib\ivl\system.vpi";
+:vpi_module "E:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "E:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "E:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "E:\iverilog\lib\ivl\va_math.vpi";
+S_00000274ccda6ae0 .scope module, "pulseGenSTIM" "pulseGenSTIM" 2 3;
+ .timescale -7 -8;
+v00000274cce00bc0_0 .var "clk", 0 0;
+v00000274cce00260_0 .var "in", 0 0;
+v00000274cce00080_0 .net "q", 0 0, L_00000274ccdb3a10;  1 drivers
+S_00000274cce8d340 .scope module, "pg" "pulseGen" 2 7, 3 1 0, S_00000274ccda6ae0;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "q";
+    .port_info 1 /INPUT 1 "in";
+    .port_info 2 /INPUT 1 "clk";
+L_00000274ccdb3cb0 .functor NOT 1, v00000274cce00260_0, C4<0>, C4<0>, C4<0>;
+L_00000274ccdb3d20 .functor NOT 1, L_00000274cce00940, C4<0>, C4<0>, C4<0>;
+L_00000274ccdb3a10 .functor AND 1, L_00000274ccdb3d20, L_00000274cce008a0, C4<1>, C4<1>;
+v00000274cce009e0_0 .net "Q", 1 0, L_00000274cce00ee0;  1 drivers
+v00000274cce00800_0 .net "QN1", 0 0, L_00000274ccdb3d20;  1 drivers
+v00000274cce003a0_0 .net *"_ivl_1", 0 0, L_00000274cce00940;  1 drivers
+v00000274cce00b20_0 .net *"_ivl_3", 0 0, L_00000274cce008a0;  1 drivers
+v00000274cce00440_0 .net "clk", 0 0, v00000274cce00bc0_0;  1 drivers
+v00000274cce00a80_0 .net "in", 0 0, v00000274cce00260_0;  1 drivers
+v00000274cce004e0_0 .net "nin", 0 0, L_00000274ccdb3cb0;  1 drivers
+v00000274cce00300_0 .net "q", 0 0, L_00000274ccdb3a10;  alias, 1 drivers
+L_00000274cce00940 .part L_00000274cce00ee0, 1, 1;
+L_00000274cce008a0 .part L_00000274cce00ee0, 0, 1;
+L_00000274cce00ee0 .concat8 [ 1 1 0 0], v00000274cce00620_0, v00000274cce00e40_0;
+L_00000274cce00120 .part L_00000274cce00ee0, 0, 1;
+S_00000274cce8d4d0 .scope module, "d0" "D_FF" 3 11, 3 15 0, S_00000274cce8d340;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "q";
+    .port_info 1 /INPUT 1 "d";
+    .port_info 2 /INPUT 1 "clk";
+    .port_info 3 /INPUT 1 "preset";
+    .port_info 4 /INPUT 1 "reset";
+v00000274cce8d660_0 .net "clk", 0 0, v00000274cce00bc0_0;  alias, 1 drivers
+v00000274cce8d700_0 .net "d", 0 0, v00000274cce00260_0;  alias, 1 drivers
+L_00000274cce01048 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v00000274cce86770_0 .net "preset", 0 0, L_00000274cce01048;  1 drivers
+v00000274cce00620_0 .var "q", 0 0;
+v00000274cce00d00_0 .net "reset", 0 0, L_00000274ccdb3cb0;  alias, 1 drivers
+E_00000274ccda7720 .event posedge, v00000274cce8d660_0, v00000274cce86770_0, v00000274cce00d00_0;
+S_00000274cce86810 .scope module, "d1" "D_FF" 3 12, 3 15 0, S_00000274cce8d340;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "q";
+    .port_info 1 /INPUT 1 "d";
+    .port_info 2 /INPUT 1 "clk";
+    .port_info 3 /INPUT 1 "preset";
+    .port_info 4 /INPUT 1 "reset";
+v00000274cce00760_0 .net "clk", 0 0, v00000274cce00bc0_0;  alias, 1 drivers
+v00000274cce00580_0 .net "d", 0 0, L_00000274cce00120;  1 drivers
+L_00000274cce01090 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v00000274cce00da0_0 .net "preset", 0 0, L_00000274cce01090;  1 drivers
+v00000274cce00e40_0 .var "q", 0 0;
+v00000274cce006c0_0 .net "reset", 0 0, L_00000274ccdb3cb0;  alias, 1 drivers
+E_00000274ccda7920 .event posedge, v00000274cce8d660_0, v00000274cce00da0_0, v00000274cce00d00_0;
+    .scope S_00000274cce8d4d0;
+T_0 ;
+    %wait E_00000274ccda7720;
+    %load/vec4 v00000274cce00d00_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.0, 8;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v00000274cce00620_0, 0;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/vec4 v00000274cce86770_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.2, 8;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v00000274cce00620_0, 0;
+    %jmp T_0.3;
+T_0.2 ;
+    %load/vec4 v00000274cce8d700_0;
+    %assign/vec4 v00000274cce00620_0, 0;
+T_0.3 ;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_00000274cce86810;
+T_1 ;
+    %wait E_00000274ccda7920;
+    %load/vec4 v00000274cce006c0_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_1.0, 8;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v00000274cce00e40_0, 0;
+    %jmp T_1.1;
+T_1.0 ;
+    %load/vec4 v00000274cce00da0_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_1.2, 8;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v00000274cce00e40_0, 0;
+    %jmp T_1.3;
+T_1.2 ;
+    %load/vec4 v00000274cce00580_0;
+    %assign/vec4 v00000274cce00e40_0, 0;
+T_1.3 ;
+T_1.1 ;
+    %jmp T_1;
+    .thread T_1;
+    .scope S_00000274ccda6ae0;
+T_2 ;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v00000274cce00bc0_0, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v00000274cce00260_0, 0;
+    %vpi_call 2 12 "$dumpfile", "pulseGen.vcd" {0 0 0};
+    %vpi_call 2 13 "$dumpvars", 32'sb00000000000000000000000000000000, S_00000274ccda6ae0 {0 0 0};
+    %end;
+    .thread T_2;
+    .scope S_00000274ccda6ae0;
+T_3 ;
+    %delay 1000, 0;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v00000274cce00260_0, 0;
+    %delay 30000, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v00000274cce00260_0, 0;
+    %delay 20000, 0;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v00000274cce00260_0, 0;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v00000274cce00260_0, 0;
+    %delay 1000, 0;
+    %vpi_call 2 21 "$finish" {0 0 0};
+    %end;
+    .thread T_3;
+    .scope S_00000274ccda6ae0;
+T_4 ;
+    %delay 50, 0;
+    %load/vec4 v00000274cce00bc0_0;
+    %inv;
+    %assign/vec4 v00000274cce00bc0_0, 0;
+    %jmp T_4;
+    .thread T_4;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "stims\pulseGenSTIM.v";
+    "pulseGen.v";
