@@ -85,32 +85,6 @@ module tricounter(Q, clk, reset); //starts at 3'b100
     D_FF dff3(Q[2], Q[1], clk, 1'b0, reset);
 endmodule
 
-module T_FF(q, t, clk, reset);
-    output q;
-    input t, clk ,reset;
-    reg q;
-
-    always @(posedge clk or posedge reset)
-    if(reset)
-        q <= 1'b0;
-    else if(t)
-        q <= ~q;
-endmodule
-
-module D_FF (q, d, clk, preset, reset);
-	input d, clk, preset, reset;
-	output q;
-	reg q;
-
-	always @(posedge reset or posedge preset or posedge clk)
-        if(reset)
-            q <= 1'b0;
-        else if(preset)
-            q <= 1'b1;
-        else
-            q <= d;
-endmodule
-
 module permitter22_3(out, permit, a, b, c);
     input [21:0] a,b,c;
     input [2:0] permit;
@@ -173,4 +147,30 @@ module equal22(q, a, b);
     xnor xnor20(eql[20],a[20],b[20]);
     xnor xnor21(eql[21],a[21],b[21]);
 
+endmodule
+
+module T_FF(q, t, clk, reset);
+    output q;
+    input t, clk ,reset;
+    reg q;
+
+    always @(posedge clk or posedge reset)
+    if(reset)
+        q <= 1'b0;
+    else if(t)
+        q <= ~q;
+endmodule
+
+module D_FF (q, d, clk, preset, reset);
+	input d, clk, preset, reset;
+	output q;
+	reg q;
+
+	always @(posedge reset or posedge preset or posedge clk)
+        if(reset)
+            q <= 1'b0;
+        else if(preset)
+            q <= 1'b1;
+        else
+            q <= d;
 endmodule

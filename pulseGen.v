@@ -1,3 +1,28 @@
+module pulseGenArr(Q, in, clk);
+    output [17:0] Q;
+    input [17:0] in;
+    input clk;
+
+    pulseGen pg0(Q[0], in[0], clk);
+    pulseGen pg1(Q[1], in[1], clk);
+    pulseGen pg2(Q[2], in[2], clk);
+    pulseGen pg3(Q[3], in[3], clk);
+    pulseGen pg4(Q[4], in[4], clk);
+    pulseGen pg5(Q[5], in[5], clk);
+    pulseGen pg6(Q[6], in[6], clk);
+    pulseGen pg7(Q[7], in[7], clk);
+    pulseGen pg8(Q[8], in[8], clk);
+    pulseGen pg9(Q[9], in[9], clk);
+    pulseGen pg10(Q[10], in[10], clk);
+    pulseGen pg11(Q[11], in[11], clk);
+    pulseGen pg12(Q[12], in[12], clk);
+    pulseGen pg13(Q[13], in[13], clk);
+    pulseGen pg14(Q[14], in[14], clk);
+    pulseGen pg15(Q[15], in[15], clk);
+    pulseGen pg16(Q[16], in[16], clk);
+    pulseGen pg17(Q[17], in[17], clk);
+endmodule
+
 module pulseGen(q, in, clk);
     output q;
     input in, clk;

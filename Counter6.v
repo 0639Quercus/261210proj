@@ -1,4 +1,4 @@
-module addressCounter(add, clk, reset);
+module counter6(add, clk, reset);
     output [5:0] add;
     input clk,reset;
     reg init;
