@@ -60,7 +60,6 @@ module BTN_reg(out, LED, BTN, mem, clk);
     wire set, reset, qn;
     and and0(set, mem, BTN);
     not not0(reset, mem);
-    //SR srbtn(out, set, reset);
     nor Q(out, qn, reset);
     nor QN(qn, out, set);
     and LEDand(LED, qn, mem, clk);
